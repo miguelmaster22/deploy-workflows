@@ -2,6 +2,13 @@ name: Reusable VPS Deploy
 
 on:
   workflow_call:
+    inputs:
+      compose_file:
+        required: true
+        type: string
+      remote_path:
+        required: true
+        type: string
 
 jobs:
   deploy:
