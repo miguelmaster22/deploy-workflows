@@ -14,6 +14,33 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    name: Reusable VPS Deploy
+
+on:
+  workflow_call:
+    inputs:
+      remote_path:
+        description: "Ruta remota en el servidor VPS"
+        required: true
+        type: string
+      compose_file:
+        description: "Archivo docker-compose a utilizar"
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar variables de entrada y secretos
+        run: |
+          echo "Verificando entradas..."
+          echo "Remote Path: ${{ inputs.remote_path }}"
+          echo "Compose File: ${{ inputs.compose_file }}"
+          echo "Verificando secretos..."
+          echo "VPS Host: ${{ secrets.VPS_HOST }}"
+          echo "VPS User: ${{ secrets.VPS_USER }}"
+          echo "Secreto de clave privada configurado: ${{ secrets.VPS_PRIVATE_KEY != '' }}"
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@master
         with:
