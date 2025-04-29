@@ -2,15 +2,6 @@ name: Reusable VPS Deploy
 
 on:
   workflow_call:
-    inputs:
-      remote_path:
-        required: true
-        type: string
-      compose_file:
-        required: false
-        type: string
-        default: docker-compose.yml
-        type: string
 
 jobs:
   deploy:
