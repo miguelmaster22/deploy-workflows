@@ -1,0 +1,28 @@
+name: Reusable VPS Deploy
+
+on:
+  workflow_call:
+    inputs:
+      remote_path:
+        required: true
+        type: string
+      compose_file:
+        required: false
+        type: string
+        default: docker-compose.yml
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          script: |
+            cd ${{ inputs.remote_path }}
+            git pull origin main
+            docker compose -f ${{ inputs.compose_file }} build
+            docker compose -f ${{ inputs.compose_file }} up -d
