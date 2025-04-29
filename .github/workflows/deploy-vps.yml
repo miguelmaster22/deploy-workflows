@@ -11,13 +11,6 @@ on:
         type: string
         default: docker-compose.yml
         type: string
-    secrets:
-      VPS_HOST:
-        required: true
-      VPS_USER:
-        required: true
-      VPS_PRIVATE_KEY:
-        required: true
 
 jobs:
   deploy:
