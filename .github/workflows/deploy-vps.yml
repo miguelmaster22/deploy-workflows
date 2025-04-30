@@ -32,6 +32,6 @@ jobs:
           script: |
             cd ${{ inputs.remote_path }}
             git pull origin main
-            docker compose down
+            docker compose -f ${{ inputs.compose_file }} down
             docker compose -f ${{ inputs.compose_file }} build
             docker compose -f ${{ inputs.compose_file }} up -d
